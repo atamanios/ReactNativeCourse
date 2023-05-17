@@ -1,19 +1,18 @@
 import * as React from 'react';
 import { View, Image, Text, TextInput, StyleSheet, Pressable, Alert } from 'react-native';
-import { validateEmail } from '../utils';
+import { validateEmail } from '../utils/index';
+import { useState } from 'react';
+import  Button  from '../components/Button';
 
 
 
 const SubscribeScreen = () => {
   // Add subscribe screen code here
-  const [email, onChangeEmail] = React.useState('');
+  const [email, setEmail] = useState('');
 
   const isEmailValid = validateEmail(email)
 
-  // const buttonAlert = () => Alert.alert( '', 'Thanks for subscribing, stay tuned!', [{
-  //   text: 'Ok',
-  //   onPress: () => console.log('Ok Pressed'),
-  // }]);
+  
 
   return ( <View style={subscribeStyles.container}>
 
@@ -27,15 +26,15 @@ const SubscribeScreen = () => {
     <TextInput 
     style={subscribeStyles.inputBox}
     value={email}
-    onChange={onChangeEmail}
-    placeholder='john@doe.com' />
+    onChangeText={setEmail}
+    placeholder={'john@doe.com'}
+    keyboardType="email-address"
+    textContentType="emailAddress" />
 
-<Pressable onPress={ () => { Alert.alert('Thanks for subscribing, stay tuned!')} } 
-style={ subscribeStyles.buttonActive }> 
 
-<Text style={subscribeStyles.buttonText}>Newsletter</Text>
-
-</Pressable>
+  <Button onPress={ () => {Alert.alert('Thanks for subscribing')}} disabled={!isEmailValid}>
+    Subscribe
+  </Button>
 
   </View>
 )};
@@ -57,31 +56,6 @@ const subscribeStyles = StyleSheet.create({
     height: 200,
     padding: 20,
     margin: 20,
-  },
-  buttonActive: {
-
-    width: 300,
-    height: 40,
-    borderRadius: 10,
-    backgroundColor: 'green',
-
-  },
-
-  buttonPassive: {
-
-    width: 300,
-    height: 40,
-    borderRadius: 10,
-    backgroundColor: 'grey',
-
-  },
-
-  buttonText: {
-    color: 'white',
-    textAlign: 'center',
-    fontSize: 25,
-    textAlignVertical: 'center',
-    
   },
   inputBox: {
     height: 40,
