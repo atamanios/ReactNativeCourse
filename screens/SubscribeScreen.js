@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { useState } from 'react';
 import { View, Image, Text, TextInput, StyleSheet, Pressable, Alert } from 'react-native';
 import { validateEmail } from '../utils';
 
@@ -7,16 +6,16 @@ import { validateEmail } from '../utils';
 
 const SubscribeScreen = () => {
   // Add subscribe screen code here
-  const [email, onChangeEmail] = useState('');
+  const [email, onChangeEmail] = React.useState('');
 
   const isEmailValid = validateEmail(email)
 
-  const buttonAlert = () => Alert.alert( '', 'Thanks for subscribing, stay tuned!', [{
-    text: 'Ok',
-    onPress: () => console.log('Ok Pressed'),
-  }]);
+  // const buttonAlert = () => Alert.alert( '', 'Thanks for subscribing, stay tuned!', [{
+  //   text: 'Ok',
+  //   onPress: () => console.log('Ok Pressed'),
+  // }]);
 
-  return <View style={subscribeStyles.container}>
+  return ( <View style={subscribeStyles.container}>
 
     <Image style={subscribeStyles.logo} source={require('../assets/little-lemon-logo-grey.png')}
       resizeMode='contain'
@@ -29,18 +28,17 @@ const SubscribeScreen = () => {
     style={subscribeStyles.inputBox}
     value={email}
     onChange={onChangeEmail}
-    placeholder={'john@doe.com'} />
+    placeholder='john@doe.com' />
 
-<Pressable onPress={ buttonAlert } 
-style={ isEmailValid ? subscribeStyles.buttonActive : subscribeStyles.buttonPassive }
-disabled={!isEmailValid}> 
+<Pressable onPress={ () => { Alert.alert('Thanks for subscribing, stay tuned!')} } 
+style={ subscribeStyles.buttonActive }> 
 
 <Text style={subscribeStyles.buttonText}>Newsletter</Text>
 
 </Pressable>
 
-  </View>;
-};
+  </View>
+)};
 
 const subscribeStyles = StyleSheet.create({
   container: {
@@ -93,7 +91,6 @@ const subscribeStyles = StyleSheet.create({
     borderWidth: 1,
     padding: 10,
     fontSize: 16,
-    borderColor: 'EDEFEE',
   },
 
 
